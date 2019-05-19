@@ -1,0 +1,245 @@
+swagger: '2.0'
+info:
+  title: Swagger API
+  version: v1
+host: localhost:8000
+schemes:
+  - http
+basePath: /
+consumes:
+  - application/json
+produces:
+  - application/json
+securityDefinitions:
+  Basic:
+    type: basic
+security:
+  - Basic: []
+paths:
+  /author/:
+    get:
+      operationId: author_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Author'
+      tags:
+        - author
+    post:
+      operationId: author_create
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Author'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/Author'
+      tags:
+        - author
+    parameters: []
+  /author/{parent_lookup_books}/books/:
+    get:
+      operationId: author_books_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Book'
+      tags:
+        - author
+    post:
+      operationId: author_books_create
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Book'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/Book'
+      tags:
+        - author
+    parameters:
+      - name: parent_lookup_books
+        in: path
+        required: true
+        type: string
+  /author/{parent_lookup_books}/books/{slug}/:
+    get:
+      operationId: author_books_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Book'
+      tags:
+        - author
+    put:
+      operationId: author_books_update
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Book'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Book'
+      tags:
+        - author
+    patch:
+      operationId: author_books_partial_update
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Book'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Book'
+      tags:
+        - author
+    delete:
+      operationId: author_books_delete
+      description: ''
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+        - author
+    parameters:
+      - name: parent_lookup_books
+        in: path
+        required: true
+        type: string
+      - name: slug
+        in: path
+        required: true
+        type: string
+        format: slug
+        pattern: ^[-a-zA-Z0-9_]+$
+  /author/{slug}/:
+    get:
+      operationId: author_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Author'
+      tags:
+        - author
+    put:
+      operationId: author_update
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Author'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Author'
+      tags:
+        - author
+    patch:
+      operationId: author_partial_update
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Author'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Author'
+      tags:
+        - author
+    delete:
+      operationId: author_delete
+      description: ''
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+        - author
+    parameters:
+      - name: slug
+        in: path
+        required: true
+        type: string
+        format: slug
+        pattern: ^[-a-zA-Z0-9_]+$
+definitions:
+  Author:
+    required:
+      - age
+    type: object
+    properties:
+      _id:
+        title: ' id'
+        type: string
+        format: uri
+        readOnly: true
+      full_name:
+        title: Full name
+        type: string
+        readOnly: true
+      age:
+        title: Age
+        type: integer
+  Book:
+    required:
+      - title
+    type: object
+    properties:
+      _id:
+        title: ' id'
+        type: string
+        format: uri
+        readOnly: true
+      title:
+        title: Title
+        type: string
+        maxLength: 200
+        minLength: 1
+      description:
+        title: Description
+        type: string
+        maxLength: 500
